@@ -63,6 +63,9 @@ export default Vue.extend({
     background-color white
     border-radius 2px
     padding 3px
+    .message-text
+      white-space pre
+      word-wrap break-word
 </style>
 
 

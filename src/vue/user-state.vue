@@ -1,8 +1,8 @@
 <template>
   <div class="user-state-wrap" @click="showUserStateMenu">
     <div class="user-state">
-      <img class="user-icon" :src="userInfo.photoURL" alt="user-icon">
-      <div class="user-name">{{userInfo.displayName}}</div>
+      <img class="user-icon" :src="userInfo.photoURL || 'unknown.png'" alt="">
+      <div class="user-name">{{userInfo.displayName || userInfo.email }}</div>
       <div class="user-state-menu" v-show="showMenu" @mouseleave="hideUserStateMenu">
         <div class="user-state-menu-item logout" @click="logout">Logout</div>
       </div>
@@ -59,6 +59,7 @@ iconSize = 35px
   .user-name
     display inline-block
     vertical-align bottom
+    overflow hidden
     width stateWidth - iconSize
   .user-state-menu
     position absolute
