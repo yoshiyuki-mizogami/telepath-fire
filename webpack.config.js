@@ -21,7 +21,7 @@ module.exports = {
   module:{
     rules:[
       {
-        test:/\/.ts$/,
+        test:/\.ts$/,
         loader:'ts-loader',
         options:{
           appendTsSuffixTo:[/\.vue$/]
@@ -37,6 +37,13 @@ module.exports = {
           MiniCSSExtractPlugin.loader,
           'css-loader',
           'stylus-loader'
+        ]
+      },
+      {
+        test:/\.css$/,
+        use:[
+          MiniCSSExtractPlugin.loader,
+          'css-loader'
         ]
       }
     ]
