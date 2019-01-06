@@ -34,6 +34,7 @@ export default Vue.extend({
   background-color white
   border-left-width 10px
   border-left-style solid
+  cursor pointer
   &.selected
     font-weight bold
     color rgb(255, 180,100)

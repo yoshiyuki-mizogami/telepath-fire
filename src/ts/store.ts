@@ -17,6 +17,7 @@ const store = new Vuex.Store({
   state:{
     version:packageData.version as string,
     userInfo:{} as User,
+    userRef:null as firestore.DocumentReference | null,
     config:{
       preventNotify:false
     },
@@ -28,11 +29,17 @@ const store = new Vuex.Store({
     setUser(state, user){
       state.userInfo = new User(user)
     },
+    setRefUser(state, refUser:firestore.DocumentReference){
+      state.userRef = refUser
+    },
     addTeam(state, team:firestore.DocumentReference){
       state.teams.push(team)
     },
-    async addMessage(state, message){
-      state.messages.unshift(await messageConverter(message))
+    async addMessage(state, messageRef){
+      if(!messageRef.data().sentAt){
+        return
+      }
+      state.messages.unshift(messageRef)
     },
     selectTeam(state, ref:firestore.DocumentReference){
       state.selectedTeamRef = ref
@@ -73,9 +80,10 @@ const store = new Vuex.Store({
       db.settings({
         timestampsInSnapshots:true
       })
-      const refDoc = db.collection('users').doc(user.email)
-      refDoc.update({lastLogin:new Date()})
-      const refMe = await refDoc.get()
+      const refUser = db.collection('users').doc(user.email)
+      store.commit('setRefUser', refUser)
+      refUser.update({lastLogin:new Date()})
+      const refMe = await refUser.get()
       if(!refMe.exists){
         store.dispatch('showDialog', {
           level:'error',
@@ -100,17 +108,36 @@ const store = new Vuex.Store({
         location.href = location.href
       })
     },
+    async sendMessage(store, message){
+      const {state} = store
+      const messageObject = {
+        sender:state.userRef,
+        sentAt:firebase.firestore.FieldValue.serverTimestamp(),
+        text:message,
+        files:[],
+        responses:[],
+        reads:[],
+        type:'text',
+        teams:[(state.selectedTeamRef as any).ref]
+      }
+      db.collection('messages').add(messageObject)
+
+    },
     async getTeams(store, refMe){
       const teams = await db.collection('teams').where('users','array-contains', store.state.userInfo.email).get()
       teams.forEach(async team=>{
-        const query = db.collection('messages').where('teams', 'array-contains',  team.ref)
-        query.onSnapshot(messageSnapshot=>{
-            messageSnapshot.forEach(mref=>{
-              store.commit('addMessage', mref.data())
-            })
-          })
         store.commit('addTeam', team)
+        const query = db.collection('messages').where('teams', 'array-contains',  team.ref).orderBy('sentAt', 'asc' )
+        query.onSnapshot(messageSnapshot=>{
+          messageSnapshot.docChanges().forEach(async changes=>{
+            const doc = await changes.doc
+            store.commit('addMessage', doc)
+          })
+        })
       })
+      if(store.state.teams.length === 1){
+        store.commit('selectTeam', store.state.teams[0])
+      }
     }
   }
 })

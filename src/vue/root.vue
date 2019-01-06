@@ -10,7 +10,7 @@
       <div class="right-pane">
         <message-form/>
         <div class="messages">
-          <message v-for="m in messages" :key="m.id" :message="m"/>
+          <message v-for="m in messages" :key="m.id" :messageRef="m"/>
         </div>
       </div>
     </div>
