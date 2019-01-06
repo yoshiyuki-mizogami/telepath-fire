@@ -1,0 +1,36 @@
+{
+  "name": "telepath-fire",
+  "version": "1.0.2",
+  "description": "telepath fire",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoshiyuki-mizogami/telepath-fire.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yoshiyuki-mizogami/telepath-fire/issues"
+  },
+  "homepage": "https://github.com/yoshiyuki-mizogami/telepath-fire#readme",
+  "dependencies": {
+    "moment": "^2.23.0",
+    "vue": "^2.5.21",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "css-loader": "^2.1.0",
+    "gulp": "^4.0.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "ts-loader": "^5.3.3",
+    "vue-loader": "^15.5.0",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.28.3"
+  }
+}

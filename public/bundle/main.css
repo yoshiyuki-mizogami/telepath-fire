@@ -1,0 +1,37 @@
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Meiryo;
+  font-size: 1.2rem;
+  height: 100%;
+}
+#app {
+  height: 100%;
+}
+.title {
+  text-indent: 15px;
+  background-color: #ffe9c8;
+  height: 30px;
+}
+.title .version {
+  font-size: small;
+  color: #808080;
+}
+.main-content {
+  height: calc(100% - 30px);
+  display: flex;
+}
+.teams {
+  height: 100%;
+  background-color: #ffd3be;
+  width: 200px;
+}
+
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvdnVlL3Jvb3QudnVlPzNlZTYiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJmaWxlIjoibWFpbi5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIqIHtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbn1cbmh0bWwsXG5ib2R5IHtcbiAgbWFyZ2luOiAwO1xuICBwYWRkaW5nOiAwO1xuICBmb250LWZhbWlseTogTWVpcnlvO1xuICBmb250LXNpemU6IDEuMnJlbTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuI2FwcCB7XG4gIGhlaWdodDogMTAwJTtcbn1cbi50aXRsZSB7XG4gIHRleHQtaW5kZW50OiAxNXB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZlOWM4O1xuICBoZWlnaHQ6IDMwcHg7XG59XG4udGl0bGUgLnZlcnNpb24ge1xuICBmb250LXNpemU6IHNtYWxsO1xuICBjb2xvcjogIzgwODA4MDtcbn1cbi5tYWluLWNvbnRlbnQge1xuICBoZWlnaHQ6IGNhbGMoMTAwJSAtIDMwcHgpO1xuICBkaXNwbGF5OiBmbGV4O1xufVxuLnRlYW1zIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZkM2JlO1xuICB3aWR0aDogMjAwcHg7XG59XG4iXSwic291cmNlUm9vdCI6IiJ9*/
