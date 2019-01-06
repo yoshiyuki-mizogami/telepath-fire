@@ -1,5 +1,5 @@
 export default {
-  NOTIFY_TIMEOUT:3000,
+  NOTIFY_TIMEOUT:5000,
   API_CONFIG:{
     apiKey: "AIzaSyDtQ-PvF8A7kOpcTF8k0QfEEnj7h1sdAWg",
     authDomain: "telepathfire.firebaseapp.com",

@@ -20,20 +20,33 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import {mapState} from 'vuex'
 import Message from '../ts/models/message'
 import File from './file.vue'
 import messageConverter from '../ts/models/message'
+import notify from '../ts/notify'
+let ev :any
 export default Vue.extend({
   data(){
     return {
-      message:null
+      message:null as any
     }
   },
   props:{
     messageRef:Object
   },
+  computed:{
+    ...mapState(['userInfo'])
+  },
   async created(){
     this.message = await messageConverter(this.messageRef.data())
+    if(this.message.sender.email === this.userInfo.id){
+      return
+    }
+    clearTimeout(ev)
+    ev = setTimeout(()=>{
+      this.$store.dispatch('notify', (this.message as  any).sender.nickname + '\n' + (this.message as any).text.substr(0, 20))
+    }, 300)
   },
   methods:{
     readIt(){

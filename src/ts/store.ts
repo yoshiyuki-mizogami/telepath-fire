@@ -9,8 +9,7 @@ import 'firebaseui/dist/firebaseui.css'
 import User from './models/user'
 import * as packageData from '../../package.json'
 import eventHub from './eventHub';
-import { Firestore } from '@google-cloud/firestore';
-import messageConverter from './models/message';
+let ev: any
 Vue.use(Vuex)
 let db : firestore.Firestore
 const store = new Vuex.Store({
@@ -26,8 +25,8 @@ const store = new Vuex.Store({
     messages:[] as any[]
   },
   mutations:{
-    setUser(state, user){
-      state.userInfo = new User(user)
+    setUser(state, {id, user}){
+      state.userInfo = new User(id, user)
     },
     setRefUser(state, refUser:firestore.DocumentReference){
       state.userRef = refUser
@@ -36,10 +35,14 @@ const store = new Vuex.Store({
       state.teams.push(team)
     },
     async addMessage(state, messageRef){
-      if(!messageRef.data().sentAt){
+      const data = messageRef.data()
+      if(!data.sentAt){
         return
       }
       state.messages.unshift(messageRef)
+      if(data.sender.email === state.userInfo.id){
+        return
+      }
     },
     selectTeam(state, ref:firestore.DocumentReference){
       state.selectedTeamRef = ref
@@ -94,7 +97,10 @@ const store = new Vuex.Store({
         })
         return
       }
-      store.commit('setUser', user)
+      store.commit('setUser', {
+        id:refUser.id,
+        user
+      })
       await store.dispatch('getTeams', refMe)
     },
     showDialog(store,{level,message,clbk}){
