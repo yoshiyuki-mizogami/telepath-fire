@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/yoshiyuki-mizogami/telepath-fire#readme",
   "dependencies": {
+    "firebase-admin": "^6.4.0",
     "firebase-tools": "^6.2.2",
     "moment": "^2.23.0",
     "vue": "^2.5.21",
