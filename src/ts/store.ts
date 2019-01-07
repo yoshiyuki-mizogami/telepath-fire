@@ -4,8 +4,6 @@ import notify from './notify'
 import globals from './globals'
 import {firestore} from 'firebase'
 import firebase from 'firebase/app'
-import firebaseui from 'firebaseui'
-import 'firebaseui/dist/firebaseui.css'
 import User from './models/user'
 import * as packageData from '../../package.json'
 import eventHub from './eventHub';
@@ -51,32 +49,15 @@ const store = new Vuex.Store({
   actions:{
     async init(store){
       firebase.initializeApp(globals.API_CONFIG)
-      let ui = firebaseui.auth.AuthUI.getInstance()
-      if(!ui){
-        ui = new firebaseui.auth.AuthUI(firebase.auth())
-      }
       firebase.auth().onAuthStateChanged(user=>{
         if(user){
           store.dispatch('login', user)
           return
         }
       })
-      ui.start('#firebase-auth-container', {
-        callbacks:{
-          signInSuccessWithAuthResult(authResult, redirectUrl){
-            store.dispatch('login', authResult)
-            return false
-          }
-        },
-        signInFlow:'popup',
-        signInSuccessUrl:location.href,
-        signInOptions:[
-          firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID
-        ],
-        privacyPolicyUrl:'privacy-policy.html',
-        tosUrl:'tos.html'
-      })
+    },
+    async signIn(store, {email, password}){
+      await firebase.auth().signInWithEmailAndPassword(email, password)
     },
     async login(store, user){
       db = firestore()

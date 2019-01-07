@@ -12,7 +12,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import eventHub from '../ts/eventHub'
-import { clearTimeout } from 'timers'
 export enum MESSAGE_LEVEL{
   INFO = 'info',
   WARN = 'warn',
