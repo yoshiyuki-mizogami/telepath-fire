@@ -14,9 +14,7 @@
         </div>
       </div>
     </div>
-    <div id="auth-wrap" ref="auth-container" v-show="!userInfo.email">
-      <div id="firebase-auth-container"></div>
-    </div>
+    <login-form v-if="!userInfo.email"/>
     <app-dialog/>
   </div>
 </template>
@@ -27,11 +25,13 @@ import {mapState} from 'vuex'
 import Team from './team.vue'
 import UserState from './user-state.vue'
 import MessageForm from './message-form.vue'
+import LoginForm from './login.vue'
 export default Vue.extend({
   components:{
     Team,
     UserState,
-    MessageForm
+    MessageForm,
+    LoginForm
   },
   computed:{
     ...mapState(['version', 'teams', 'messages', 'userInfo'])
@@ -43,15 +43,6 @@ export default Vue.extend({
 </script>
 
 <style lang="stylus">
-#auth-wrap
-  background-color rgb(255, 200, 170)
-  height 100%
-  position fixed
-  top 0
-  left 0
-  width 100%
-  padding-top 3%
-
 titleHeight = 35px
 *
   box-sizing border-box
@@ -64,10 +55,10 @@ html,body
 input,button, select, textarea
   font-family inherit
   padding 5px 10px
-  border solid 3px rgb(200,255,200)
-  background-color white
   min-width 10vw
 button, input[type=button]
+  background-color white
+  border solid 3px rgb(200,255,200)
   cursor pointer
 button:hover, input[type=button]:hover
   border-color rgb(255, 200,200)
